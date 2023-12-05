@@ -1,0 +1,28 @@
+CREATE TABLE "boards" (
+  "id" smallserial PRIMARY KEY,
+  "name" text UNIQUE NOT NULL
+);
+
+CREATE TABLE "threads" (
+  "id" smallserial PRIMARY KEY,
+  "text" text,
+  "delete_password" text,
+  "created_on" timestamptz DEFAULT (now()),
+  "bumped_on" timestamptz DEFAULT (now()),
+  "reported" bool DEFAULT false,
+  "board_id" smallint
+);
+
+CREATE TABLE "replies" (
+  "id" smallserial PRIMARY KEY,
+  "text" text,
+  "delete_password" text,
+  "created_on" timestamptz DEFAULT (now()),
+  "bumped_on" timestamptz DEFAULT (now()),
+  "thread_id" smallint
+);
+
+ALTER TABLE "threads" ADD FOREIGN KEY ("board_id") REFERENCES "boards" ("id");
+
+ALTER TABLE "replies" ADD FOREIGN KEY ("thread_id") REFERENCES "threads" ("id");
+

@@ -7,7 +7,5 @@ image: gitpod/workspace-postgres
 tasks:
   - init: npm install
     command: npm run start
-  - name: run
-    command: pg_start
 
 
